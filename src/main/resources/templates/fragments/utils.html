@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:fragment="navigation">
+
+    <ul class="nav">
+
+        <li class="nav-item">
+            <a th:href="@{/patient}">Pacjenci</a>
+        </li>
+
+        <li class="nav-item">
+            <a th:href="@{/facility}">Placówki</a>
+        </li>
+
+        <li class="nav-item">
+            <a th:href="@{/patient/add}">Dodaj pacjenta</a>
+        </li>
+
+        <li class="nav-item">
+            <a th:href="@{/facility/add}">Dodaj placówkę</a>
+        </li>
+
+        <li class="nav-item">
+            <a th:href="@{/vaccination}">Zaplanuj szczepienie</a>
+        </li>
+
+        <li class="nav-item">
+            <a th:href="@{/login}">Zaloguj się</a>
+        </li>
+        <li class="nav-item">
+            <form id="logout" method="post" th:action="@{/logout}">
+                <a href="#" onclick="document.getElementById('logout').submit()">Wyloguj się</a>
+            </form>
+        </li>
+
+        <li class="nav-item">
+            <a th:href="@{/registration}">Rejestracja</a>
+        </li>
+
+    </ul>
+
+    <p sec:authorize="isAuthenticated()">Jesteś zalogowany jako: <span sec:authentication="name"></span></p>
+
+</div>
+<div th:fragment="footer">
+    <h5>Aplikacja stworzona w ramach kursu SDA, 2021</h5>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Vaccination</title>
+    <link th:href="@{/style/main.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/utils.html :: navigation"></div>
+
+<h4>Zaloguj się</h4>
+
+<br>
+
+<div class="container">
+    <form th:action="@{/authenticate}"  method="post">
+        <div class="row">
+            <div class="col-4">
+                <input type="text" name="userLogin" placeholder="Login"/>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-4">
+                <input type="text" name="userPassword" placeholder="Password"/>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="container">
+            <div class="row">
+                <div class="offset-3">
+                    <input type="submit" value="Zaloguj" class="btn btn-primary">
+                    <input type="reset" class="btn btn-primary"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/utils.html :: footer"></div>
+</body>
+</html>
