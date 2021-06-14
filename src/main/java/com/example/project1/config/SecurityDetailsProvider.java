@@ -21,8 +21,8 @@ public class SecurityDetailsProvider implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String userLogin) throws UsernameNotFoundException {
-        final UserEntity userEntity = userRepository.findByUserLogin(userLogin)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final UserEntity userEntity = userRepository.findByUserLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
         return new User(userEntity.getUserLogin(), userEntity.getUserPassword(),

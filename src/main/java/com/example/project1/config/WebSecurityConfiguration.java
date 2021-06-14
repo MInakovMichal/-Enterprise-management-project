@@ -59,15 +59,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
 
-//        http.formLogin()
-//                .loginPage("/login")
-//                .loginProcessingUrl("/authenticate")
-//                .defaultSuccessUrl("/")
-//                .and()
-//                .logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessUrl("/")
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID");
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticate")
+                .defaultSuccessUrl("/")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 }

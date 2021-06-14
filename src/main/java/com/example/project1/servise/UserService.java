@@ -25,9 +25,8 @@ public class UserService {
                 .userLogin(newUser.getUserLogin())
 //                .userPassword(passwordEncoder.encode(newUser.getUserPassword()))
                 .userPassword(newUser.getUserPassword())
-                .userRole(UserRole.WORKER)
+                .userRole(UserRole.valueOf(UserRole.WORKER.name()))
                 .build();
         userRepository.save(entity);
-
     }
 }

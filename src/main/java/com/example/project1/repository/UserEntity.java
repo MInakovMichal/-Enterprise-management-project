@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -29,5 +30,6 @@ public class UserEntity {
     @Column(columnDefinition = "ENUM('WORKER', 'ENGINEER', 'CONSTRUCTION_MANAGER', 'DIRECTOR', 'HOLDER')")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+    private final LocalDateTime userDateOfRegistration = LocalDateTime.now();
 
 }
