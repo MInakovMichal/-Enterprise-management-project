@@ -6,6 +6,7 @@ import com.example.project1.servise.UserService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,21 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/registration")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 //@PreAuthorize("isAnonymous()")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping()
+    @GetMapping
+    public ModelAndView displayUserPage() {
+        ModelAndView mav = new ModelAndView("users");
+        mav.addObject("users", userService.getAllUser());
+//        mav.addObject("users", userService.getAllPatients());
+        return mav;
+    }
+
+    @GetMapping("/registration")
     public ModelAndView displayRegistrationPage() {
         ModelAndView mav = new ModelAndView("registration");
         mav.addObject("newUser", new NewUser());
         return mav;
     }
 
-    @PostMapping()
+    @PostMapping("/registration")
     public String handleUserRegistration(@ModelAttribute NewUser newUser) {
         userService.registerUser(newUser);
 

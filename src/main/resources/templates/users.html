@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org"><head>
+  <meta charset="UTF-8">
+  <title>Staff</title>
+  <link th:href="@{/style/main.css}" rel="stylesheet">
+  <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+  <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/utils.html :: navigation"></div>
+
+<div th:if="${users != null and !users.isEmpty()}">
+  <table class="table table-bordered table-dark">
+    <thead>
+    <tr>
+      <th scope="col">Lp.</th>
+      <th scope="col">Imię</th>
+      <th scope="col" sec:authorize="isAuthenticated()">Nazwisko</th>
+      <th scope="col" sec:authorize="hasAnyRole('DIRECTOR','HOLDER')">PESEL</th>
+      <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Email</th>
+      <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Telefon</th>
+      <th scope="col" sec:authorize="hasAnyRole('DIRECTOR','HOLDER')">Login</th>
+      <th scope="col">Stanowisko</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user, iterator : ${users}" th:class="${iterator.odd ? 'odd' : 'even'}"
+        th:include="fragments/usersTable.html :: userRow(user, iterator)">
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--<div th:if="${patients == null or patients.isEmpty()}">-->
+<div th:unless="${users != null and !users.isEmpty()}">
+  <h4>Brak zarejestrowanych pracowników</h4>
+  <p sec:authorize="isAuthenticated()"><a th:href="@{/user/add}">Dodaj pracownika</a></p>
+</div>
+<div th:replace="fragments/utils.html :: footer"></div>
+
+
+<script>
+  function editUser(patId) {
+    window.location.assign("http://localhost:8080/patient/edit/" + patId)
+  }
+
+  function deleteUser(userId) {
+    let r = confirm("Usunąć pacjenta?");
+    if (r === true) {
+      window.location.assign("http://localhost:8080/patient/delete/" + userId)
+    } else {
+      alert("Pacjent nie był usunięty")
+    }
+  }
+
+  // function deleteVaccination(userId) {
+  //   let r = confirm("Usunąć szczepienie?");
+  //   if (r === true) {
+  //     window.location.assign("http://localhost:8080/patient/deleteVaccination/" + userId)
+  //   } else {
+  //     alert("Szczepienie nie było usunięty")
+  //   }
+  // }
+  //
+  // function addDescription(userId) {
+  //   window.location.assign("http://localhost:8080/questions/" + userId)
+  // }
+  //
+  // function addVaccination(userId) {
+  //   let r = confirm("Dodać szczepienie?");
+  //   if (r === true) {
+  //     window.location.assign("http://localhost:8080/vaccination/")
+  //   } else {
+  //     alert("Szczepienie nie było dodane")
+  //   }
+  // }
+
+</script>
+
+</body>
+</html>

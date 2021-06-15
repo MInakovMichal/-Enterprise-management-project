@@ -1,12 +1,12 @@
-table {
-    border-spacing: 0;
-}
+/*table {*/
+/*    border-spacing: 0;*/
+/*}*/
 
-td {
-    border: 1px solid black;
-    margin: 0;
-    padding: 0;
-}
+/*td {*/
+/*    border: 1px solid black;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 .odd {
     background-color: green;
@@ -22,27 +22,27 @@ td {
     padding: 3px;
 }
 
-/*ul {*/
-/*    list-style-type: none;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    overflow: hidden;*/
-/*    background-color: #333;*/
-/*}*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
 
-/*li {*/
-/*    float: left;*/
-/*}*/
+li {
+    float: left;
+}
 
-/*li a {*/
-/*    display: block;*/
-/*    color: white;*/
-/*    text-align: center;*/
-/*    padding: 14px 16px;*/
-/*    text-decoration: none;*/
-/*}*/
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
-/*!* Change the link color to #111 (black) on hover *!*/
-/*li a:hover {*/
-/*    background-color: #111;*/
-/*}*/
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #111;
+}

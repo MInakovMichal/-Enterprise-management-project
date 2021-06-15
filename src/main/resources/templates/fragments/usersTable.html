@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="userRow(user, iterator)">
+  <th scope="row"><span th:text="${iterator.count}"></span></th>
+  <td><span th:text="${user.userName}"></span></td>
+  <td sec:authorize="isAuthenticated()"><span th:text="${user.userSurname}"></span></td>
+  <td sec:authorize="hasAnyRole('DIRECTOR','HOLDER')"><span th:text="${user.userPesel}"></span></td>
+  <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span th:text="${user.userEmail}"></span></td>
+  <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span th:text="${user.userPhoneNumber}"></span></td>
+  <td sec:authorize="hasAnyRole('DIRECTOR','HOLDER')"><span th:text="${user.userLogin}"></span></td>
+  <td><span th:text="${user.userRole}"></span></td>
+
+  <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')" class="editButton">
+    <input type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'">
+    <input type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'">
+<!--    <input type="button" value="Add description" th:onclick="'addDescription('+${user.id}+')'">-->
+  </td>
+
+</div>
+</body>
+</html>

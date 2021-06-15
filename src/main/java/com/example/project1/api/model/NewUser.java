@@ -14,6 +14,7 @@ public class NewUser {
     private String userSurname;
     private String userEmail;
     private String userPhoneNumber;
+    private String userPesel;
     private String userLogin;
     private String userPassword;
     private UserRole userRole;
