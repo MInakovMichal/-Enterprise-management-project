@@ -19,7 +19,6 @@ public class SecurityDetailsProvider implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final UserEntity userEntity = userRepository.findByUserLogin(username)
@@ -27,10 +26,20 @@ public class SecurityDetailsProvider implements UserDetailsService {
 
         return new User(userEntity.getUserLogin(), userEntity.getUserPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userEntity.getUserRole().name())));
-//        return User
-//                .withUsername(userEntity.getUserLogin())
-//                .password(userEntity.getUserPassword())
-//                .authorities(userEntity.getUserRole().name())
-//                .build();
     }
+
+
+    //    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        final UserEntity userEntity = userRepository.findByUserLogin(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+//
+//        return new User(userEntity.getUserLogin(), userEntity.getUserPassword(),
+//                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userEntity.getUserRole().name())));
+////        return User
+////                .withUsername(userEntity.getUserLogin())
+////                .password(userEntity.getUserPassword())
+////                .authorities(userEntity.getUserRole().name())
+////                .build();
+//    }
 }

@@ -30,14 +30,14 @@ public class UserController {
         return mav;
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/addUser")
     public ModelAndView displayRegistrationPage() {
-        ModelAndView mav = new ModelAndView("registration");
+        ModelAndView mav = new ModelAndView("addUser");
         mav.addObject("newUser", new NewUser());
         return mav;
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/addUser")
     public String handleUserRegistration(@ModelAttribute NewUser newUser) {
         userService.registerUser(newUser);
 

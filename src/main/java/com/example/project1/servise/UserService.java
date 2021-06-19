@@ -8,6 +8,7 @@ import com.example.project1.repository.UserEntity;
 import com.example.project1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public void registerUser(NewUser newUser) {
         UserEntity entity = UserEntity.builder()
@@ -28,8 +29,8 @@ public class UserService {
                 .userPhoneNumber(newUser.getUserPhoneNumber())
                 .userPesel(newUser.getUserPesel())
                 .userLogin(newUser.getUserLogin())
-//                .userPassword(passwordEncoder.encode(newUser.getUserPassword()))
-                .userPassword(newUser.getUserPassword())
+                .userPassword(passwordEncoder.encode(newUser.getUserPassword()))
+//                .userPassword(newUser.getUserPassword())
                 .userRole(UserRole.valueOf(UserRole.WORKER.name()))
                 .build();
         userRepository.save(entity);
@@ -51,8 +52,8 @@ public class UserService {
                 .userPhoneNumber(entity.getUserPhoneNumber())
                 .userPesel(entity.getUserPesel())
                 .userLogin(entity.getUserLogin())
-//                .userPassword(passwordEncoder.encode(newUser.getUserPassword()))
-                .userPassword(entity.getUserPassword())
+                .userPassword(passwordEncoder.encode(entity.getUserPassword()))
+//                .userPassword(entity.getUserPassword())
                 .userRole(UserRole.valueOf(UserRole.WORKER.name()))
                 .build();
     }
