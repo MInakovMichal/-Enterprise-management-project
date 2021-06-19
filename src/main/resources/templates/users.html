@@ -22,6 +22,7 @@
       <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Telefon</th>
       <th scope="col" sec:authorize="hasAnyRole('DIRECTOR','HOLDER')">Login</th>
       <th scope="col">Stanowisko</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
@@ -41,8 +42,8 @@
 
 
 <script>
-  function editUser(patId) {
-    window.location.assign("http://localhost:8080/patient/edit/" + patId)
+  function editUser(userId) {
+    window.location.assign("http://localhost:8080/user/update/" + userId)
   }
 
   function deleteUser(userId) {

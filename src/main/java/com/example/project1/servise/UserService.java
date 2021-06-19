@@ -8,9 +8,14 @@ import com.example.project1.repository.UserEntity;
 import com.example.project1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +25,17 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public void updateUser(User updateUser) {
+        userRepository.updateUser(updateUser.getUserId(), updateUser.getUserName(), updateUser.getUserSurname(), updateUser.getUserPesel(), updateUser.getUserEmail(), updateUser.getUserPhoneNumber());
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id)
+                .map(this::mapToUser)
+                .orElseThrow(() -> new IllegalStateException("User doesn't exist"));
+    }
 
     public void registerUser(NewUser newUser) {
         UserEntity entity = UserEntity.builder()
@@ -39,11 +55,11 @@ public class UserService {
     public List<User> getAllUser() {
         return userRepository.findAll()
                 .stream()
-                .map(this::mapToPatient)
+                .map(this::mapToUser)
                 .collect(Collectors.toList());
     }
 
-    private User mapToPatient(UserEntity entity) {
+    private User mapToUser(UserEntity entity) {
         return User.builder()
                 .userId(entity.getUserId())
                 .userName(entity.getUserName())
@@ -57,6 +73,4 @@ public class UserService {
                 .userRole(UserRole.valueOf(UserRole.WORKER.name()))
                 .build();
     }
-
-
 }

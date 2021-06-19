@@ -30,13 +30,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    ServletRegistrationBean h2servletRegistration(){
-//        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
-//        registrationBean.addUrlMappings("/console/*");
-//        return registrationBean;
-//    }
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -44,7 +37,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -54,7 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/").permitAll().and()
+        http.authorizeRequests().antMatchers("/").authenticated().and()
                 .authorizeRequests().antMatchers("/registration").anonymous();
         http.csrf().disable();
         http.headers().frameOptions().disable();

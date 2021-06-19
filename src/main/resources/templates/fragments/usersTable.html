@@ -20,6 +20,12 @@
 <!--    <input type="button" value="Add description" th:onclick="'addDescription('+${user.id}+')'">-->
   </td>
 
+  <td class="editButton">
+    <input type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'">
+    <input type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'">
+<!--    <input type="button" value="Add description" th:onclick="'addDescription('+${user.id}+')'">-->
+  </td>
+
 </div>
 </body>
 </html>

@@ -2,17 +2,15 @@ package com.example.project1.web;
 
 
 import com.example.project1.api.model.NewUser;
+import com.example.project1.api.model.User;
 import com.example.project1.servise.UserService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/user")
@@ -30,6 +28,16 @@ public class UserController {
         return mav;
     }
 
+    @PostMapping
+    public RedirectView handleFacilityChange(@ModelAttribute User User) {
+        userService.updateUser(User);
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/user");
+
+        return redirectView;
+    }
+
     @GetMapping("/addUser")
     public ModelAndView displayRegistrationPage() {
         ModelAndView mav = new ModelAndView("addUser");
@@ -44,4 +52,10 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/update/{userId}")
+    public ModelAndView displayUpdateUserPage(@PathVariable Long userId) {
+        ModelAndView mav = new ModelAndView("updateUser");
+        mav.addObject("user", userService.getUser(userId));
+        return mav;
+    }
 }
