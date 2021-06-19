@@ -7,6 +7,7 @@ import com.example.project1.servise.UserService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +25,7 @@ public class UserController {
     public ModelAndView displayUserPage() {
         ModelAndView mav = new ModelAndView("users");
         mav.addObject("users", userService.getAllUser());
-//        mav.addObject("users", userService.getAllPatients());
+        mav.addObject("logged", SecurityContextHolder.getContext().getAuthentication() != null);
         return mav;
     }
 
