@@ -21,6 +21,7 @@
 <!--  </td>-->
 
   <td class="editButton" th:if="${logged}">
+    <input th:value="${logged}">
     <input type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'">
     <input type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'">
   </td>
