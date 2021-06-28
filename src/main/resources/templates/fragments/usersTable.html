@@ -20,8 +20,7 @@
 <!--&lt;!&ndash;    <input type="button" value="Add description" th:onclick="'addDescription('+${user.id}+')'">&ndash;&gt;-->
 <!--  </td>-->
 
-  <td class="editButton" th:if="${logged}">
-    <input th:value="${logged}">
+  <td class="editButton" sec:authorize="isAuthenticated()" >
     <input type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'">
     <input type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'">
   </td>

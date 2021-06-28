@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      xmlns:sec="http://www.thymeleaf.org">
+      xmlns:sec="http://www.thymeleaf.org" xmlns:if="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +25,7 @@
             </form>
         </li>
     </ul>
-    <p sec:authorize="isAuthenticated()">Jesteś zalogowany jako: <span sec:authentication="principal.username"></span></p>
+    <p sec:authorize="isAuthenticated()">Jesteś zalogowany jako: <span if:sec:authentication="principal.username"></span></p>
 </div>
 
 <div th:fragment="footer">
