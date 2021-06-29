@@ -8,12 +8,15 @@ import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/user")
@@ -27,12 +30,22 @@ public class UserController {
     public ModelAndView displayUserPage() {
         ModelAndView mav = new ModelAndView("users");
         mav.addObject("users", userService.getAllUser());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String login = auth.getName();
+        Object principal = auth.getPrincipal();
+        String principalToString = ((UserDetails) auth.getPrincipal()).getAuthorities().toString();
 
-        final Object authentication = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        final String principal =  authentication.getPrincipal();
-
-        mav.addObject("logged", !"anonymousUser".equalsIgnoreCase(String.valueOf(authentication)));
-
+        boolean hasUserRole = false;
+        if (principal instanceof UserDetails) {
+            if (principalToString.equals("[ROLE_CONSTRUCTION_MANAGER]")
+                    || principalToString.equals("[ROLE_DIRECTOR]")
+                    || principalToString.equals("[ROLE_HOLDER]")
+            ){
+                hasUserRole = true;
+            }
+        }
+        mav.addObject("whatRole", hasUserRole);
+        mav.addObject("logged", login);
         return mav;
     }
 

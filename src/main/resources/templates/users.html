@@ -22,7 +22,7 @@
       <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Telefon</th>
       <th scope="col" sec:authorize="hasAnyRole('DIRECTOR','HOLDER')">Login</th>
       <th scope="col">Stanowisko</th>
-      <th th:if="${logged}"></th>
+<!--      <th th:if="${users.userLogin == logged}"></th>-->
     </tr>
     </thead>
     <tbody>

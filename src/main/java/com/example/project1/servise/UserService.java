@@ -70,7 +70,7 @@ public class UserService {
                 .userLogin(entity.getUserLogin())
                 .userPassword(passwordEncoder.encode(entity.getUserPassword()))
 //                .userPassword(entity.getUserPassword())
-                .userRole(UserRole.valueOf(UserRole.WORKER.name()))
+                .userRole(entity.getUserRole())
                 .build();
     }
 }

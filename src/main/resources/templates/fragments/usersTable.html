@@ -12,18 +12,16 @@
   <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span th:text="${user.userEmail}"></span></td>
   <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span th:text="${user.userPhoneNumber}"></span></td>
   <td sec:authorize="hasAnyRole('DIRECTOR','HOLDER')"><span th:text="${user.userLogin}"></span></td>
-  <td><span th:text="${user.userRole}"></span></td>
+  <td><span th:text="${user.userRole}"></span>
+    <input style="float: right;" type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'" th:if="${whatRole == true || user.userLogin == logged}">
+    <input style="float: right; margin-right: 4px" type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'" th:if="${whatRole == true || user.userLogin == logged}">
+  </td>
 
 <!--  <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')" class="editButton">-->
 <!--    <input type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'">-->
 <!--    <input type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'">-->
 <!--&lt;!&ndash;    <input type="button" value="Add description" th:onclick="'addDescription('+${user.id}+')'">&ndash;&gt;-->
 <!--  </td>-->
-
-  <td class="editButton" sec:authorize="isAuthenticated()" >
-    <input type="button" value="Edit" th:onclick="'editUser('+${user.userId}+')'">
-    <input type="button" value="Delete" th:onclick="'deleteUser('+${user.userId}+')'">
-  </td>
 
 </div>
 </body>
