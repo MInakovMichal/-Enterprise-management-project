@@ -15,7 +15,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.swing.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,19 +39,24 @@ public class UserService {
                 .orElseThrow(() -> new IllegalStateException("User doesn't exist"));
     }
 
-    public void registerUser(NewUser newUser) {
+    public void registerWorker(NewUser newUser) {
         UserEntity entity = UserEntity.builder()
                 .userName(newUser.getUserName())
                 .userSurname(newUser.getUserSurname())
                 .userEmail(newUser.getUserEmail())
                 .userPhoneNumber(newUser.getUserPhoneNumber())
                 .userPesel(newUser.getUserPesel())
-                .userLogin(newUser.getUserLogin())
-                .userPassword(passwordEncoder.encode(newUser.getUserPassword()))
-//                .userPassword(newUser.getUserPassword())
-                .userRole(UserRole.valueOf(UserRole.WORKER.name()))
+                .userRole(newUser.getUserRole())
                 .build();
         userRepository.save(entity);
+    }
+
+    @Transactional
+    public void registerUser(User addUser) {
+        boolean present = userRepository.findByUserPesel(addUser.getUserPesel()).isPresent();
+        if (present) {
+            userRepository.addUser(addUser.getUserPesel(), addUser.getUserLogin(), passwordEncoder.encode(addUser.getUserPassword()));
+        }
     }
 
     public List<User> getAllUser() {
@@ -68,8 +75,6 @@ public class UserService {
                 .userPhoneNumber(entity.getUserPhoneNumber())
                 .userPesel(entity.getUserPesel())
                 .userLogin(entity.getUserLogin())
-                .userPassword(passwordEncoder.encode(entity.getUserPassword()))
-//                .userPassword(entity.getUserPassword())
                 .userRole(entity.getUserRole())
                 .build();
     }

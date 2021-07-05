@@ -33,14 +33,13 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String login = auth.getName();
         Object principal = auth.getPrincipal();
-        String principalToString = ((UserDetails) auth.getPrincipal()).getAuthorities().toString();
-
         boolean hasUserRole = false;
         if (principal instanceof UserDetails) {
+            String principalToString = ((UserDetails) principal).getAuthorities().toString();
             if (principalToString.equals("[ROLE_CONSTRUCTION_MANAGER]")
                     || principalToString.equals("[ROLE_DIRECTOR]")
                     || principalToString.equals("[ROLE_HOLDER]")
-            ){
+            ) {
                 hasUserRole = true;
             }
         }
@@ -67,8 +66,22 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public String handleUserRegistration(@ModelAttribute NewUser newUser) {
-        userService.registerUser(newUser);
+    public String handleUserRegistration(@ModelAttribute User addUser) {
+        userService.registerUser(addUser);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/addWorker")
+    public ModelAndView displayWorkerRegistrationPage() {
+        ModelAndView mav = new ModelAndView("addWorker");
+        mav.addObject("newUser", new NewUser());
+        return mav;
+    }
+
+    @PostMapping("/addWorker")
+    public String displayWorkerRegistrationPage(@ModelAttribute NewUser newUser) {
+        userService.registerWorker(newUser);
 
         return "redirect:/";
     }

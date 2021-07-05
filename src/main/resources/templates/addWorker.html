@@ -16,14 +16,13 @@
 <br>
 
 <div class="container">
-    <form th:action="@{/user/addUser}" th:object="${newUser}" method="post">
+    <form th:action="@{/user/addWorker}" th:object="${newUser}" method="post">
         <div class="row">
             <div class="col-2">
                 Imię :
             </div>
             <div class="col-4">
-                <input th:field="*{userName}" required/>
-<!--                <input th:field="*{userName}" required/>-->
+                <input th:field="*{userName}"/>
             </div>
         </div>
 
@@ -34,7 +33,7 @@
                 Nazwisko :
             </div>
             <div class="col-4">
-                <input th:field="*{userSurname}" required/>
+                <input th:field="*{userSurname}"/>
             </div>
         </div>
 
@@ -46,7 +45,7 @@
                 Pesel :
             </div>
             <div class="col-4">
-                <input th:field="*{userPesel}" required/>
+                <input th:field="*{userPesel}"/>
             </div>
         </div>
 
@@ -57,7 +56,7 @@
                 Email :
             </div>
             <div class="col-4">
-                <input th:field="*{userEmail}" required/>
+                <input th:field="*{userEmail}"/>
             </div>
         </div>
 
@@ -68,7 +67,7 @@
                 Telefon :
             </div>
             <div class="col-4">
-                <input th:field="*{userPhoneNumber}" required/>
+                <input th:field="*{userPhoneNumber}"/>
             </div>
         </div>
 
@@ -76,21 +75,15 @@
 
         <div class="row">
             <div class="col-2">
-                Login :
+                Stanowisko :
             </div>
             <div class="col-4">
-                <input th:field="*{userLogin}"/>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-2">
-                Hasło :
-            </div>
-            <div class="col-4">
-                <input type="password" th:field="*{userPassword}"/>
+                <select th:field="*{userRole}">
+                    <option th:value="WORKER">WORKER</option>
+                    <option th:value="ENGINEER">ENGINEER</option>
+                    <option th:value="CONSTRUCTION_MANAGER">CONSTRUCTION MANAGER</option>
+                    <option th:value="DIRECTOR">DIRECTOR</option>
+                </select>
             </div>
         </div>
 
@@ -107,6 +100,7 @@
     </form>
 </div>
 <div th:replace="fragments/utils.html :: footer"></div>
+
 </body>
 </html>
 
