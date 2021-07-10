@@ -46,6 +46,7 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userPesel}"/>
+<!--                <div th:if="${#fields.hasErrors('userPesel')}" th:errors="*{userPesel}">UserPesel error</div>-->
             </div>
         </div>
 
@@ -57,6 +58,7 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userEmail}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">UserEmail Error</div>
             </div>
         </div>
 

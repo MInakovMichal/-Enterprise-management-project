@@ -5,18 +5,16 @@ import com.example.project1.api.model.NewUser;
 import com.example.project1.api.model.User;
 import com.example.project1.servise.UserService;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Collection;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/worker")
@@ -49,13 +47,10 @@ public class WorkerController {
     }
 
     @PostMapping
-    public RedirectView handleUserChange(@ModelAttribute User User) {
+    public String handleUserChange(@ModelAttribute User User) {
         userService.updateUser(User);
 
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/worker");
-
-        return redirectView;
+        return "redirect:/worker";
     }
 
     @GetMapping("/addWorker")
@@ -66,7 +61,10 @@ public class WorkerController {
     }
 
     @PostMapping("/addWorker")
-    public String displayWorkerRegistrationPage(@ModelAttribute NewUser newUser) {
+    public String displayWorkerRegistrationPage(@ModelAttribute @Valid NewUser newUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "redirect:/addWorker";
+        }
         userService.registerWorker(newUser);
 
         return "redirect:/worker";

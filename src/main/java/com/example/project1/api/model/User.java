@@ -3,6 +3,8 @@ package com.example.project1.api.model;
 import com.example.project1.api.enums.UserRole;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +15,7 @@ public class User {
     private Long userId;
     private String userName;
     private String userSurname;
+    @NotEmpty(message = "Email should not be empty")
     private String userEmail;
     private String userPhoneNumber;
     private String userPesel;
