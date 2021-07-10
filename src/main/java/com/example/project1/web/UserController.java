@@ -5,10 +5,7 @@ import com.example.project1.api.model.NewUser;
 import com.example.project1.api.model.User;
 import com.example.project1.servise.UserService;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Collection;
+import javax.swing.*;
 
 @Controller
 @RequestMapping("/user")
@@ -26,70 +23,38 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public ModelAndView displayUserPage() {
-        ModelAndView mav = new ModelAndView("users");
-        mav.addObject("users", userService.getAllUser());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String login = auth.getName();
-        Object principal = auth.getPrincipal();
-        boolean hasUserRole = false;
-        if (principal instanceof UserDetails) {
-            String principalToString = ((UserDetails) principal).getAuthorities().toString();
-            if (principalToString.equals("[ROLE_CONSTRUCTION_MANAGER]")
-                    || principalToString.equals("[ROLE_DIRECTOR]")
-                    || principalToString.equals("[ROLE_HOLDER]")
-            ) {
-                hasUserRole = true;
-            }
-        }
-        mav.addObject("whatRole", hasUserRole);
-        mav.addObject("logged", login);
-        return mav;
-    }
-
-    @PostMapping
-    public RedirectView handleFacilityChange(@ModelAttribute User User) {
-        userService.updateUser(User);
-
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/user");
-
-        return redirectView;
-    }
-
     @GetMapping("/addUser")
-    public ModelAndView displayRegistrationPage() {
+    public ModelAndView handleUserCheck() {
         ModelAndView mav = new ModelAndView("addUser");
         mav.addObject("newUser", new NewUser());
         return mav;
     }
 
     @PostMapping("/addUser")
+    public String handleUserCheck(@ModelAttribute User addUser) {
+        boolean isPeselExistInDatabase = userService.checkUser(addUser);
+        boolean isUserActivated = userService.isUserActivated(addUser);
+        if (isPeselExistInDatabase && !isUserActivated) {
+            return "redirect:/user/registration/" + addUser.getUserPesel();
+        } else {
+            return "redirect:/user/addUser";
+        }
+    }
+
+    @GetMapping("/registration/{userPesel}")
+    public ModelAndView displayRegistrationPage(@PathVariable String userPesel) {
+        ModelAndView mav = new ModelAndView("registration");
+        mav.addObject("user", userService.getUserByPesel(userPesel));
+        return mav;
+    }
+
+
+    @PostMapping
     public String handleUserRegistration(@ModelAttribute User addUser) {
         userService.registerUser(addUser);
 
-        return "redirect:/";
+        return "redirect:/worker";
     }
 
-    @GetMapping("/addWorker")
-    public ModelAndView displayWorkerRegistrationPage() {
-        ModelAndView mav = new ModelAndView("addWorker");
-        mav.addObject("newUser", new NewUser());
-        return mav;
-    }
 
-    @PostMapping("/addWorker")
-    public String displayWorkerRegistrationPage(@ModelAttribute NewUser newUser) {
-        userService.registerWorker(newUser);
-
-        return "redirect:/";
-    }
-
-    @GetMapping("/update/{userId}")
-    public ModelAndView displayUpdateUserPage(@PathVariable Long userId) {
-        ModelAndView mav = new ModelAndView("updateUser");
-        mav.addObject("user", userService.getUser(userId));
-        return mav;
-    }
 }

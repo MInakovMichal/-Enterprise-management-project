@@ -16,7 +16,7 @@
 <br>
 
 <div class="container">
-    <form th:action="@{/user}" th:object="${user}" method="post">
+    <form th:action="@{/worker}" th:object="${user}" method="post">
         <input type="hidden" th:field="*{userId}" th:value="${user.userId}"/>
 
         <div class="row">

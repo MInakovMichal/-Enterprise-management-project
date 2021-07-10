@@ -19,5 +19,13 @@ public class User {
     private String userLogin;
     private String userPassword;
     private UserRole userRole;
+    private boolean isActivated;
 
+    public boolean getIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(boolean isActivated) {
+        this.isActivated = isActivated;
+    }
 }

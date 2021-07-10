@@ -27,6 +27,8 @@ public class UserEntity {
     private String userPesel;
     private String userLogin;
     private String userPassword;
+    private boolean isActivated;
+
 
     @Column(columnDefinition = "ENUM('WORKER', 'ENGINEER', 'CONSTRUCTION_MANAGER', 'DIRECTOR', 'HOLDER')")
     @Enumerated(EnumType.STRING)

@@ -11,36 +11,12 @@
 
 <div th:replace="fragments/utils.html :: navigation"></div>
 
-<h4>Rejestracja</h4>
+<h4>Sprawdzenie pesela</h4>
 
 <br>
 
 <div class="container">
     <form th:action="@{/user/addUser}" th:object="${newUser}" method="post">
-        <div class="row">
-            <div class="col-2">
-                Imię :
-            </div>
-            <div class="col-4">
-                <input th:field="*{userName}" required/>
-<!--                <input th:field="*{userName}" required/>-->
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-2">
-                Nazwisko :
-            </div>
-            <div class="col-4">
-                <input th:field="*{userSurname}" required/>
-            </div>
-        </div>
-
-        <br>
-
-
         <div class="row">
             <div class="col-2">
                 Pesel :
@@ -52,54 +28,10 @@
 
         <br>
 
-        <div class="row">
-            <div class="col-2">
-                Email :
-            </div>
-            <div class="col-4">
-                <input th:field="*{userEmail}" required/>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-2">
-                Telefon :
-            </div>
-            <div class="col-4">
-                <input th:field="*{userPhoneNumber}" required/>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-2">
-                Login :
-            </div>
-            <div class="col-4">
-                <input th:field="*{userLogin}"/>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-            <div class="col-2">
-                Hasło :
-            </div>
-            <div class="col-4">
-                <input type="password" th:field="*{userPassword}"/>
-            </div>
-        </div>
-
-        <br>
-
         <div class="container">
             <div class="row">
                 <div class="offset-3">
-                    <input type="submit" value="Zapisz" class="btn btn-primary">
+                    <input type="submit" value="Sprawdż" class="btn btn-primary">
                     <input type="reset" class="btn btn-primary"/>
                 </div>
             </div>

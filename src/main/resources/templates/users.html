@@ -43,15 +43,15 @@
 
 <script>
   function editUser(userId) {
-    window.location.assign("http://localhost:8080/user/update/" + userId)
+    window.location.assign("http://localhost:8080/worker/update/" + userId)
   }
 
   function deleteUser(userId) {
-    let r = confirm("Usunąć pacjenta?");
+    let r = confirm("Usunąć pracownika?");
     if (r === true) {
-      window.location.assign("http://localhost:8080/patient/delete/" + userId)
+      window.location.assign("http://localhost:8080/worker/delete/" + userId)
     } else {
-      alert("Pacjent nie był usunięty")
+      alert("Pracownik nie był usunięty")
     }
   }
 </script>
