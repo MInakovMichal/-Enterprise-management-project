@@ -24,7 +24,8 @@
                 Imię :
             </div>
             <div class="col-4">
-                <input th:field="*{userName}" disabled/>
+                <input th:field="*{userName}"/>
+                <div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">UserName Error</div>
             </div>
         </div>
 
@@ -35,7 +36,7 @@
                 Nazwisko :
             </div>
             <div class="col-4">
-                <input th:field="*{userSurname}" disabled/>
+                <input th:field="*{userSurname}"/>
             </div>
         </div>
 
@@ -46,7 +47,7 @@
                 Email :
             </div>
             <div class="col-4">
-                <input th:field="*{userEmail}" required/>
+                <input th:field="*{userEmail}" />
             </div>
         </div>
 
@@ -57,7 +58,7 @@
                 Telefon :
             </div>
             <div class="col-4">
-                <input th:field="*{userPhoneNumber}" required/>
+                <input th:field="*{userPhoneNumber}" />
             </div>
         </div>
 

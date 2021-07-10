@@ -61,10 +61,10 @@ public class WorkerController {
     }
 
     @PostMapping("/addWorker")
-    public String displayWorkerRegistrationPage(@ModelAttribute @Valid NewUser newUser, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            return "redirect:/addWorker";
-        }
+    public String displayWorkerRegistrationPage(@ModelAttribute NewUser newUser, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()){
+//            return "redirect:/worker/addWorker";
+//        }
         userService.registerWorker(newUser);
 
         return "redirect:/worker";

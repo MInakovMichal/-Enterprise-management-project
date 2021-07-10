@@ -9,11 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.swing.*;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -50,7 +52,11 @@ public class UserController {
 
 
     @PostMapping
-    public String handleUserRegistration(@ModelAttribute User addUser) {
+    public String handleUserRegistration(@ModelAttribute @Valid User addUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "redirect:/user/registration/" + addUser.getUserPesel();
+        }
+
         userService.registerUser(addUser);
 
         return "redirect:/worker";
