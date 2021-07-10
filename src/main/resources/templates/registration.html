@@ -21,11 +21,16 @@
 
         <div class="row">
             <div class="col-2">
-                Imię :
+                <label for="userName">Imię :</label>
             </div>
             <div class="col-4">
-                <input th:field="*{userName}"/>
+                <input th:field="*{userName}" id="userName"/>
+                <span style="color:red" th:if="${#fields.hasErrors('userName')}"
+                      th:text="${#fields.errors('userName')}"></span>
                 <div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">UserName Error</div>
+                <ul>
+                    <li th:each="err : ${#fields.errors('fullName')}" th:text="${err}" class="error" />
+                </ul>
             </div>
         </div>
 

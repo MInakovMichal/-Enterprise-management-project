@@ -54,6 +54,7 @@ public class UserController {
     @PostMapping
     public String handleUserRegistration(@ModelAttribute @Valid User addUser, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
+
             return "redirect:/user/registration/" + addUser.getUserPesel();
         }
 
