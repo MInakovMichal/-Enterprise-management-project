@@ -24,8 +24,9 @@
                 <a href="#" onclick="document.getElementById('logout').submit()">Wyloguj się</a>
             </form>
         </li>
+
     </ul>
-    <p sec:authorize="isAuthenticated()">Jesteś zalogowany jako: <span sec:authentication="name"></span></p>
+    <p class="autentication" sec:authorize="isAuthenticated()">Jesteś zalogowany jako: <span sec:authentication="name"></span></p>
 </div>
 
 <div th:fragment="footer">

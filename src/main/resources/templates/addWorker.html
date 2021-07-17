@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Vaccination</title>
+    <title>My organization</title>
     <link th:href="@{/style/main.css}" rel="stylesheet">
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
@@ -23,6 +23,9 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userName}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userName')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -34,6 +37,9 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userSurname}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userSurname')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -46,7 +52,9 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userPesel}"/>
-<!--                <div th:if="${#fields.hasErrors('userPesel')}" th:errors="*{userPesel}">UserPesel error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userPesel')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -58,7 +66,10 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userEmail}"/>
-                <div style="color:red" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">UserEmail Error</div>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userEmail')}" th:text="${err}"/>
+                </ul>
+
             </div>
         </div>
 
@@ -70,6 +81,9 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userPhoneNumber}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userPhoneNumber')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 

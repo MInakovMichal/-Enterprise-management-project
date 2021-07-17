@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Vaccination</title>
+    <title>My organization</title>
     <link th:href="@{/style/main.css}" rel="stylesheet">
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
@@ -16,7 +16,7 @@
 <br>
 
 <div class="container">
-    <form th:action="@{/user}" th:object="${user}" method="post">
+    <form th:action="@{/user/registration}" th:object="${user}" method="post">
         <input type="hidden" th:field="*{userPesel}" th:value="${user.userPesel}"/>
 
         <div class="row">
@@ -25,11 +25,9 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userName}" id="userName"/>
-                <span style="color:red" th:if="${#fields.hasErrors('userName')}"
-                      th:text="${#fields.errors('userName')}"></span>
-                <div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">UserName Error</div>
-                <ul>
-                    <li th:each="err : ${#fields.errors('fullName')}" th:text="${err}" class="error" />
+<!--                <div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">UserName Error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userName')}" th:text="${err}"/>
                 </ul>
             </div>
         </div>
@@ -42,6 +40,10 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userSurname}"/>
+<!--                <div style="color:red" th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}">UserSurname Error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userSurname')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -53,6 +55,10 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userEmail}" />
+<!--                <div style="color:red" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">UserEmail Error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userEmail')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -64,6 +70,10 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userPhoneNumber}" />
+<!--                <div style="color:red" th:if="${#fields.hasErrors('userPhoneNumber')}" th:errors="*{userPhoneNumber}">UserPhoneNumber Error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userPhoneNumber')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -75,6 +85,10 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userLogin}"/>
+<!--                <div style="color:red" th:if="${#fields.hasErrors('userLogin')}" th:errors="*{userLogin}">UserLogin Error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userLogin')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 
@@ -86,6 +100,10 @@
             </div>
             <div class="col-4">
                 <input type="password" th:field="*{userPassword}"/>
+<!--                <div style="color:red" th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}">UserPassword Error</div>-->
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('userPassword')}" th:text="${err}"/>
+                </ul>
             </div>
         </div>
 

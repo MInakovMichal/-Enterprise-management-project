@@ -1,11 +1,11 @@
 package com.example.project1.api.model;
 
 import com.example.project1.api.enums.UserRole;
-import com.example.project1.api.validaator.Pesel;
 import lombok.*;
 import org.hibernate.validator.constraints.pl.PESEL;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -25,11 +25,13 @@ public class User {
     private String userSurname;
 
     @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
     private String userEmail;
 
     @NotEmpty(message = "Phone number should not be empty")
     private String userPhoneNumber;
 
+    @PESEL(message = "PESEL should have proper value")
     private String userPesel;
 
     @NotEmpty(message = "Login should not be empty")

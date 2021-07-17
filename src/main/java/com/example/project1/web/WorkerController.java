@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -61,10 +63,24 @@ public class WorkerController {
     }
 
     @PostMapping("/addWorker")
-    public String displayWorkerRegistrationPage(@ModelAttribute NewUser newUser, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()){
-//            return "redirect:/worker/addWorker";
-//        }
+    public String displayWorkerRegistrationPage(@Valid @ModelAttribute("newUser") NewUser newUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+//            for (Object object : bindingResult.getAllErrors()) {
+//                if(object instanceof FieldError) {
+//                    FieldError fieldError = (FieldError) object;
+//
+//                    System.out.println(fieldError.getCode());
+//                }
+//
+//                if(object instanceof ObjectError) {
+//                    ObjectError objectError = (ObjectError) object;
+//
+//                    System.out.println(objectError.getCode());
+//                }
+//            }
+            return "addWorker";
+
+        }
         userService.registerWorker(newUser);
 
         return "redirect:/worker";

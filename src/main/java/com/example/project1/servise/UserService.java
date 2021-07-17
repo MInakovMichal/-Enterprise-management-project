@@ -96,7 +96,13 @@ public class UserService {
     }
 
     public boolean isUserActivated(User addUser) {
-        return userRepository.findByUserPesel(addUser.getUserPesel()).get().isActivated();
+        boolean activated = false;
+        Optional<UserEntity> byUserPesel = userRepository.findByUserPesel(addUser.getUserPesel());
+        if (byUserPesel.isPresent()) {
+            activated = byUserPesel.get().isActivated();
+            return activated;
+        }
+        return activated;
     }
 
     public void deletePatient(Long id) {

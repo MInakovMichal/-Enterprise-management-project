@@ -22,7 +22,7 @@
     padding: 3px;
 }
 
-ul {
+ul.nav {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -30,19 +30,27 @@ ul {
     background-color: #333;
 }
 
-li {
+li.nav-item {
     float: left;
 }
 
-li a {
+li.nav-item a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
+.autentication {
+    color: white;
+    text-align: right;
+    padding: 5px;
+    background-color: #212529;
+    margin-bottom: 0;
+
+}
 
 /* Change the link color to #111 (black) on hover */
-li a:hover {
+li.nav-item a:hover {
     background-color: #111;
 }

@@ -16,7 +16,7 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUserPesel(String userPesel);
 
-    boolean findByIsActivated(boolean isActivated);
+//    boolean findByIsActivated(boolean isActivated);
 
     Optional<UserEntity> findById(Long id);
 

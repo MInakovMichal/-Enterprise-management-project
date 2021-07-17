@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
 </head>
 <body>
-<div th:fragment="userRow(user, iterator)">
-  <th scope="row"><span th:text="${iterator.count}"></span></th>
+<div th:fragment="userRow(user, iterator)" >
+  <th scope="row"><span th:text="${iterator.count - 1}"></span></th>
   <td><span th:text="${user.userName}"></span></td>
   <td sec:authorize="isAuthenticated()"><span th:text="${user.userSurname}"></span></td>
   <td sec:authorize="hasAnyRole('DIRECTOR','HOLDER')"><span th:text="${user.userPesel}"></span></td>
