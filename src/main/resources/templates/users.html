@@ -26,8 +26,8 @@
     </tr>
     </thead>
     <tbody >
-    <tr th:if="${user.UserLogin != 'Admin'}" th:each="user, iterator : ${users}" th:class="${iterator.odd ? 'odd' : 'even'}"
-        th:include="fragments/usersTable.html :: userRow(user, iterator)">
+    <tr style="cursor:pointer;" th:if="${user.UserLogin != 'Admin'}" th:each="user, iterator : ${users}" th:class="${iterator.odd ? 'odd' : 'even'}"
+        th:include="fragments/usersTable.html :: userRow(user, iterator)" th:onclick="'goToCalendar('+${user.userId}+')'">
     </tr>
     </tbody>
   </table>
@@ -44,6 +44,10 @@
 <script>
   function editUser(userId) {
     window.location.assign("http://localhost:8080/worker/update/" + userId)
+  }
+
+  function goToCalendar(userId) {
+    window.location.assign("http://localhost:8080/worker/workerCalendar_" + userId)
   }
 
   function deleteUser(userId) {

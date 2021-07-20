@@ -16,16 +16,19 @@
 <br>
 
 <div class="container">
-    <form th:action="@{/user/addUser}" th:object="${user}" method="post">
+    <form th:action="@{/user/addUserAccess}" th:object="${user}" method="post">
         <div class="row">
             <div class="col-2">
                 Email :
             </div>
             <div class="col-4">
-                <input type="text" th:field="*{userEmail}" style="width: 80%"/>
-                <ul style="color:red">
-                    <li th:each="err : ${#fields.errors('userEmail')}" th:text="${err}"/>
-                </ul>
+                <input type="text" th:field="*{userEmail}" style="width: 80%" disabled="true"/>
+
+                <div id="mailAcception">
+                    <p>Link do rejestracji został wysłany na podany adres.</p>
+                </div>
+
+
             </div>
         </div>
 
@@ -34,14 +37,19 @@
         <div class="container">
             <div class="row">
                 <div class="offset-3">
-                    <input type="submit" value="Sprawdż" class="btn btn-primary" id="check">
-                    <input type="reset" class="btn btn-primary"/>
+                    <input type="button" value="Strona glówna" class="btn btn-primary" th:onclick="'goToMain()'">
+<!--                    <input type="reset" class="btn btn-primary"/>-->
                 </div>
             </div>
         </div>
     </form>
 </div>
 <div th:replace="fragments/utils.html :: footer"></div>
+<script>
+    function goToMain() {
+        window.location.assign("http://localhost:8080/worker");
+    }
+</script>
 </body>
 </html>
 

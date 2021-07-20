@@ -28,5 +28,16 @@ public class DataLoader implements ApplicationRunner {
                 .isActivated(true)
                 .build();
         userRepository.save(entity);
+
+        UserEntity entity2 = UserEntity.builder()
+                .userName("Jan")
+                .userSurname("Nowak")
+                .userEmail("minakov.mykhailo@gmail.com")
+                .userPhoneNumber("123456")
+                .userPesel("71030567164")
+                .userRole(UserRole.WORKER)
+                .isActivated(false)
+                .build();
+        userRepository.save(entity2);
     }
 }

@@ -37,6 +37,11 @@ public class UserService {
                 .map(this::mapToUser)
                 .orElseThrow(() -> new IllegalStateException("User doesn't exist"));
     }
+    public User getUserByEmail(String email) {
+        return userRepository.findByUserEmail(email)
+                .map(this::mapToUser)
+                .orElseThrow(() -> new IllegalStateException("User doesn't exist"));
+    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
@@ -72,7 +77,7 @@ public class UserService {
     }
 
     public boolean checkUser(User addUser) {
-        return userRepository.findByUserPesel(addUser.getUserPesel()).isPresent();
+        return userRepository.findByUserEmail(addUser.getUserEmail()).isPresent();
     }
 
     public List<User> getAllUser() {
@@ -97,9 +102,9 @@ public class UserService {
 
     public boolean isUserActivated(User addUser) {
         boolean activated = false;
-        Optional<UserEntity> byUserPesel = userRepository.findByUserPesel(addUser.getUserPesel());
-        if (byUserPesel.isPresent()) {
-            activated = byUserPesel.get().isActivated();
+        Optional<UserEntity> byUserEmail = userRepository.findByUserEmail(addUser.getUserEmail());
+        if (byUserEmail.isPresent()) {
+            activated = byUserEmail.get().isActivated();
             return activated;
         }
         return activated;
