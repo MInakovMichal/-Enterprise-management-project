@@ -7,8 +7,8 @@ import java.util.Properties;
 
 public class MailMessagePrepare {
 
-    final String username = "ramses00777@gmail.com";
-    final String password = "ucsirwyoxctvabhi";
+    final String username = "yourMail.com";
+    final String password = "yourPassword";
 
     public void prepareMessageObject(String recipient, String messageText) throws MessagingException {
 
