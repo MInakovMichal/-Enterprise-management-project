@@ -4,24 +4,23 @@
     <meta charset="UTF-8">
     <title>Worker Calendar</title>
     <link th:href="@{/style/main.css}" rel="stylesheet">
-<!--    <link th:href="@{/style/workerCalendar.css}" rel="stylesheet">-->
 
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <style>
-        *{
+        * {
             box-sizing: border-box;
         }
 
-        body{
+        body {
             font-family: sans-serif;
         }
 
-        #month-calendar{
+        #month-calendar {
             width: 100%;
         }
 
-        .month{
+        .month {
             margin: 0;
             padding: 3rem 2rem 2rem;
             background: #555555;
@@ -31,7 +30,7 @@
             list-style: none;
         }
 
-        .month li{
+        .month li {
             padding: 0;
             margin: 0;
             font-size: 1.5rem;
@@ -42,24 +41,24 @@
         }
 
         .month li.prev,
-        .month li.next{
+        .month li.next {
             cursor: pointer;
         }
 
-        .month li.prev{
+        .month li.prev {
             float: left;
         }
 
-        .month li.next{
+        .month li.next {
             float: right;
         }
 
-        .month li.year-name{
+        .month li.year-name {
             font-size: 1.2rem;
             font-weight: 400;
         }
 
-        .weekdays{
+        .weekdays {
             margin: 0;
             padding: 1rem 0;
             background-color: #dddddd;
@@ -70,13 +69,13 @@
             justify-content: left;
         }
 
-        .weekdays li{
+        .weekdays li {
             display: inline-block;
             flex: 0 0 calc(100% / 7);
             text-align: center;
         }
 
-        .days{
+        .days {
             margin: 0;
             padding: 1rem 0;
             background-color: #eeeeee;
@@ -88,7 +87,7 @@
             height: 14rem;
         }
 
-        .days li{
+        .days li {
             padding: 0.5rem;
             list-style: none;
             display: inline-block;
@@ -99,115 +98,131 @@
             line-height: 1rem;
         }
 
-        .days li.date-now{
+        .days li.date-now {
             color: #000;
             font-weight: 700;
             background-color: darkcyan;
+        }
+
+        .userInfo {
+            padding: 5px;
+            background: #555555;
+            color: black;
+            font-weight:bold;
+            font-size:20px;
         }
 
 
     </style>
 </head>
 <body>
-    <div th:replace="fragments/utils.html :: navigation"></div>
+<div th:replace="fragments/utils.html :: navigation"></div>
 
-    <div id="month-calendar">
-        <ul class="month">
-            <li class="prev"><i class="fas fa-angle-double-left"><<</i></li>
-            <li class="next"><i class="fas fa-angle-double-right">>></i></li>
-            <li class="month-name"></li>
-            <li class="year-name"></li>
-        </ul>
-        <ul class="weekdays">
-            <li>Monday</li>
-            <li>Tuesday</li>
-            <li>Wednesday</li>
-            <li>Thursday</li>
-            <li>Friday</li>
-            <li>Saturday</li>
-            <li>Sunday</li>
-        </ul>
-        <ul class="days">
-        </ul>
-    </div>
+<div>
+    <form th:action="@{/worker/workerCalendar}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{userId}" th:value="${user.userId}"/>
+        <div class="userInfo">
+            <span th:text="*{userName + ' ' +  userSurname}"></span>
+            <br>
+            <span th:text="*{userRole}"></span>
+        </div>
+        <div id="month-calendar">
+            <ul class="month">
+                <li class="prev"><i class="fas fa-angle-double-left"><<</i></li>
+                <li class="next"><i class="fas fa-angle-double-right">>></i></li>
+                <li class="month-name"></li>
+                <li class="year-name"></li>
+            </ul>
+            <ul class="weekdays">
+                <li>Monday</li>
+                <li>Tuesday</li>
+                <li>Wednesday</li>
+                <li>Thursday</li>
+                <li>Friday</li>
+                <li>Saturday</li>
+                <li>Sunday</li>
+            </ul>
+            <ul class="days">
+            </ul>
+        </div>
 
-    <script>
-        let nowDate = new Date(),
-            nowDateNumber = nowDate.getDate(),
-            nowMonth = nowDate.getMonth(),
-            nowYear = nowDate.getFullYear(),
-            container = document.getElementById('month-calendar'),
-            monthContainer = container.getElementsByClassName('month-name')[0],
-            yearContainer = container.getElementsByClassName('year-name')[0],
-            daysContainer = container.getElementsByClassName('days')[0],
-            prev = container.getElementsByClassName('prev')[0],
-            next = container.getElementsByClassName('next')[0],
-            monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        <script>
+            let nowDate = new Date(),
+                nowDateNumber = nowDate.getDate(),
+                nowMonth = nowDate.getMonth(),
+                nowYear = nowDate.getFullYear(),
+                container = document.getElementById('month-calendar'),
+                monthContainer = container.getElementsByClassName('month-name')[0],
+                yearContainer = container.getElementsByClassName('year-name')[0],
+                daysContainer = container.getElementsByClassName('days')[0],
+                prev = container.getElementsByClassName('prev')[0],
+                next = container.getElementsByClassName('next')[0],
+                monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 
+            // let curDate = nowDate.setMonth(nowDate.getMonth() - 1);
+            // console.log(nowDate.getFullYear());
 
-        // let curDate = nowDate.setMonth(nowDate.getMonth() - 1);
-        // console.log(nowDate.getFullYear());
+            function setMonthCalendar(year, month) {
+                let monthDays = new Date(year, month + 1, 0).getDate(),
+                    monthPrefix = new Date(year, month, 0).getDay(),
+                    monthDaysText = '';
 
-        function setMonthCalendar(year,month) {
-            let monthDays = new Date(year, month + 1, 0).getDate(),
-                monthPrefix = new Date(year, month, 0).getDay(),
-                monthDaysText = '';
+                monthContainer.textContent = monthName[month];
+                yearContainer.textContent = year;
+                daysContainer.innerHTML = '';
 
-            monthContainer.textContent = monthName[month];
-            yearContainer.textContent = year;
-            daysContainer.innerHTML = '';
+                if (monthPrefix > 0) {
+                    for (let i = 1; i <= monthPrefix; i++) {
+                        monthDaysText += '<li></li>';
+                    }
+                }
 
-            if (monthPrefix > 0){
-                for (let i = 1  ; i <= monthPrefix; i++){
-                    monthDaysText += '<li></li>';
+                for (let i = 1; i <= monthDays; i++) {
+                    monthDaysText += '<li id="' + i + '" style="cursor:pointer;" onclick="goToDetails()">' + i + '</li>';
+                }
+
+
+                daysContainer.innerHTML = monthDaysText;
+
+                if (month === nowMonth && year === nowYear) { //oryginal month == nowMonth && year == nowYear
+                    days = daysContainer.getElementsByTagName('li');
+                    days[monthPrefix + nowDateNumber - 1].classList.add('date-now');
                 }
             }
 
-            for (let i = 1; i <= monthDays; i++){
-                monthDaysText += '<li id="' + i + '" style="cursor:pointer;" onclick="goToDetails()">' + i + '</li>';
+
+            setMonthCalendar(nowYear, nowMonth);
+
+            prev.onclick = function () {
+                let curDate = new Date(yearContainer.textContent, monthName.indexOf(monthContainer.textContent));
+
+                curDate.setMonth(curDate.getMonth() - 1);
+
+                let curYear = curDate.getFullYear(),
+                    curMonth = curDate.getMonth();
+
+                setMonthCalendar(curYear, curMonth);
             }
 
+            next.onclick = function () {
+                let curDate = new Date(yearContainer.textContent, monthName.indexOf(monthContainer.textContent));
 
-            daysContainer.innerHTML = monthDaysText;
+                curDate.setMonth(curDate.getMonth() + 1);
 
-            if (month === nowMonth && year === nowYear){ //oryginal month == nowMonth && year == nowYear
-                days = daysContainer.getElementsByTagName('li');
-                days[monthPrefix + nowDateNumber - 1].classList.add('date-now');
+                let curYear = curDate.getFullYear(),
+                    curMonth = curDate.getMonth();
+
+                setMonthCalendar(curYear, curMonth);
             }
-        }
 
+            function goToDetails() {
+                alert("Hello")
+            }
 
-
-
-        setMonthCalendar(nowYear,nowMonth);
-
-        prev.onclick = function () {
-            let curDate = new Date(yearContainer.textContent,monthName.indexOf(monthContainer.textContent));
-
-            curDate.setMonth(curDate.getMonth() - 1);
-
-            let curYear = curDate.getFullYear(),
-                curMonth = curDate.getMonth();
-
-            setMonthCalendar(curYear,curMonth);
-        }
-
-        next.onclick = function () {
-            let curDate = new Date(yearContainer.textContent,monthName.indexOf(monthContainer.textContent));
-
-            curDate.setMonth(curDate.getMonth() + 1);
-
-            let curYear = curDate.getFullYear(),
-                curMonth = curDate.getMonth();
-
-            setMonthCalendar(curYear,curMonth);
-        }
-
-        function goToDetails(){
-            alert("Hello")
-        }
-
-    </script>
-    <div th:replace="fragments/utils.html :: footer"></div></body>
+        </script>
+    </form>
+</div>
+<div th:replace="fragments/utils.html :: footer"></div>
+</body>
 </html>

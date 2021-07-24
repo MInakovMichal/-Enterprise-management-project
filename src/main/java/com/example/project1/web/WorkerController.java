@@ -101,10 +101,10 @@ public class WorkerController {
         return redirectView;
     }
 
-    @GetMapping("/workerCalendar_{userId}")
-    public ModelAndView displayWorkerCalendarPage() {
+    @GetMapping("/workerCalendar/{userId}")
+    public ModelAndView displayWorkerCalendarPage(@PathVariable Long userId) {
         ModelAndView mav = new ModelAndView("workerCalendar");
-        mav.addObject("newUser", new NewUser());
+        mav.addObject("user", userService.getUserById(userId));
         return mav;
     }
 
