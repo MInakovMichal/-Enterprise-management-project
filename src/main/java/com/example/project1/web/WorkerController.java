@@ -46,13 +46,6 @@ public class WorkerController {
         return mav;
     }
 
-    @PostMapping
-    public String handleUserChange(@ModelAttribute User User) {
-        userService.updateUser(User);
-
-        return "redirect:/worker";
-    }
-
     @GetMapping("/addWorker")
     public ModelAndView displayWorkerRegistrationPage() {
         ModelAndView mav = new ModelAndView("addWorker");
@@ -62,7 +55,7 @@ public class WorkerController {
 
     @PostMapping("/addWorker")
     public String displayWorkerRegistrationPage(@Valid @ModelAttribute("newUser") NewUser newUser, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
 //            for (Object object : bindingResult.getAllErrors()) {
 //                if(object instanceof FieldError) {
 //                    FieldError fieldError = (FieldError) object;
@@ -91,21 +84,20 @@ public class WorkerController {
         return mav;
     }
 
+    @PostMapping
+    public String handleUserChange(@ModelAttribute User User) {
+        userService.updateUser(User);
+
+        return "redirect:/worker";
+    }
+
     @GetMapping("/delete/{userId}")
-    public RedirectView deletePatient(@PathVariable Long userId) {
-        userService.deletePatient(userId);
+    public RedirectView deleteWorker(@PathVariable Long userId) {
+        userService.deleteWorker(userId);
 
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/worker");
 
         return redirectView;
     }
-
-    @GetMapping("/workerCalendar/{userId}")
-    public ModelAndView displayWorkerCalendarPage(@PathVariable Long userId) {
-        ModelAndView mav = new ModelAndView("workerCalendar");
-        mav.addObject("user", userService.getUserById(userId));
-        return mav;
-    }
-
 }

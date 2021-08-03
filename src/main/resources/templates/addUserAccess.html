@@ -11,7 +11,7 @@
 
 <div th:replace="fragments/utils.html :: navigation"></div>
 
-<h4>Aktywacja konta</h4>
+<h4>Account activation</h4>
 
 <br>
 
@@ -25,7 +25,7 @@
                 <input type="text" th:field="*{userEmail}" style="width: 80%" disabled="true"/>
 
                 <div id="mailAcception">
-                    <p>Link do rejestracji został wysłany na podany adres.</p>
+                    <p>Link to registration was sent to the address provided.</p>
                 </div>
 
 
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="row">
                 <div class="offset-3">
-                    <input type="button" value="Strona glówna" class="btn btn-primary" th:onclick="'goToMain()'">
+                    <input type="button" value="Main page" class="btn btn-primary" th:onclick="'goToMain()'">
 <!--                    <input type="reset" class="btn btn-primary"/>-->
                 </div>
             </div>

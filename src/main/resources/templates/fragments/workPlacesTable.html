@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="workPlaceRow(workPlace, iterator)">
+    <th scope="row"><span th:text="${iterator.count}"></span></th>
+    <td><span th:text="${workPlace.name}"></span></td>
+    <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span
+            th:text="${workPlace.street}"></span></td>
+    <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span
+            th:text="${workPlace.houseNumber}"></span></td>
+    <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span
+            th:text="${workPlace.zipCode}"></span></td>
+    <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span
+            th:text="${workPlace.city}"></span></td>
+    <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span
+            th:text="${workPlace.started}"></span></td>
+    <td sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')"><span
+            th:text="${workPlace.ended}"></span>
+                <input style="float: right;" type="button" value="Delete" th:onclick="'deleteWorkPlace('+${workPlace.workPlaceId}+')'">
+                <input style="float: right; margin-right: 4px" type="button" value="Edit" th:onclick="'editWorkPlace('+${workPlace.workPlaceId}+')'">
+    </td>
+</div>
+</body>
+</html>

@@ -11,7 +11,7 @@
 
 <div th:replace="fragments/utils.html :: navigation"></div>
 
-<h4>Rejestracja</h4>
+<h4>Registration</h4>
 
 <br>
 
@@ -19,7 +19,7 @@
     <form th:action="@{/worker/addWorker}" th:object="${newUser}" method="post">
         <div class="row">
             <div class="col-2">
-                Imię :
+                Name :
             </div>
             <div class="col-4">
                 <input th:field="*{userName}"/>
@@ -33,7 +33,7 @@
 
         <div class="row">
             <div class="col-2">
-                Nazwisko :
+                Surname :
             </div>
             <div class="col-4">
                 <input th:field="*{userSurname}"/>
@@ -77,7 +77,7 @@
 
         <div class="row">
             <div class="col-2">
-                Telefon :
+                Phone number :
             </div>
             <div class="col-4">
                 <input th:field="*{userPhoneNumber}"/>
@@ -91,7 +91,7 @@
 
         <div class="row">
             <div class="col-2">
-                Stanowisko :
+                Position :
             </div>
             <div class="col-4">
                 <select th:field="*{userRole}">
@@ -108,7 +108,7 @@
         <div class="container">
             <div class="row">
                 <div class="offset-3">
-                    <input type="submit" value="Zapisz" class="btn btn-primary">
+                    <input type="submit" value="Save" class="btn btn-primary">
                     <input type="reset" class="btn btn-primary"/>
                 </div>
             </div>

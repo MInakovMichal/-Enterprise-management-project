@@ -2,8 +2,11 @@ package com.example.project1.servise;
 
 import com.example.project1.api.model.NewUser;
 import com.example.project1.api.model.User;
+import com.example.project1.api.model.WorkerCalendarDetails;
 import com.example.project1.repository.UserEntity;
 import com.example.project1.repository.UserRepository;
+import com.example.project1.repository.WorkerCalendarDetailsEntity;
+import com.example.project1.repository.WorkerCalendarDetailsRepository;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +26,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final WorkerCalendarDetailsService workerCalendarDetailsService;
 
     @Transactional
     public void updateUser(User updateUser) {
@@ -62,6 +68,7 @@ public class UserService {
         userRepository.save(entity);
     }
 
+
     @Transactional
     public void registerUser(User updateUser) {
         userRepository.addUser(updateUser.getUserPesel(),
@@ -97,6 +104,7 @@ public class UserService {
                 .userPesel(entity.getUserPesel())
                 .userLogin(entity.getUserLogin())
                 .userRole(entity.getUserRole())
+                .workerCalendarDetails(workerCalendarDetailsService.mapToWorkerCalendarDetailsModelList(entity.getWorkerCalendarId()))
                 .build();
     }
 
@@ -110,7 +118,7 @@ public class UserService {
         return activated;
     }
 
-    public void deletePatient(Long id) {
+    public void deleteWorker(Long id) {
         userRepository.deleteById(id);
     }
 }

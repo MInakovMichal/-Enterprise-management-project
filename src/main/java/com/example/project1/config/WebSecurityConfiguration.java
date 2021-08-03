@@ -47,7 +47,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests().antMatchers("/").authenticated().and()
-                .authorizeRequests().antMatchers("/registration").anonymous();
+                .authorizeRequests().antMatchers("/registration").anonymous().and()
+                .authorizeRequests().antMatchers("/worker/workerCalendar/**/editWorkerCalendarDetails").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/worker/workerCalendar/**/workerCalendarDetails").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/worker/addWorker").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/worker/update/**").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/worker/delete/**").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/workPlace/addWorkPlace").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/workPlace/updateWorkPlace/**").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER").and()
+                .authorizeRequests().antMatchers("/workPlace/deleteWorkPlace/**").hasAnyRole("ENGINEER", "CONSTRUCTION_MANAGER", "DIRECTOR", "HOLDER");
+
         http.csrf().disable();
         http.headers().frameOptions().disable();
 

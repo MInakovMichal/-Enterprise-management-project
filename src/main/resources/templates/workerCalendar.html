@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        /** {*/
+        /*    box-sizing: border-box;*/
+        /*}*/
 
-        body {
-            font-family: sans-serif;
-        }
+        /*body {*/
+        /*    font-family: sans-serif;*/
+        /*}*/
 
         #month-calendar {
             width: 100%;
@@ -108,8 +108,8 @@
             padding: 5px;
             background: #555555;
             color: black;
-            font-weight:bold;
-            font-size:20px;
+            font-weight: bold;
+            font-size: 20px;
         }
 
 
@@ -143,10 +143,11 @@
                 <li>Sunday</li>
             </ul>
             <ul class="days">
+
             </ul>
         </div>
 
-        <script>
+        <script th:inline="javascript">
             let nowDate = new Date(),
                 nowDateNumber = nowDate.getDate(),
                 nowMonth = nowDate.getMonth(),
@@ -177,9 +178,16 @@
                         monthDaysText += '<li></li>';
                     }
                 }
+                /*<![CDATA[*/
 
+                let username = /*[[${user.userId}]]*/;
+
+                /*]]>*/
                 for (let i = 1; i <= monthDays; i++) {
-                    monthDaysText += '<li id="' + i + '" style="cursor:pointer;" onclick="goToDetails()">' + i + '</li>';
+                    let currentMonth = month + 1;
+                    let dateId = i + "," + currentMonth + "," + year;
+
+                        monthDaysText += '<li id="' + dateId  + '" style="cursor:pointer;" onclick="goToDetails(' +username + ',' + dateId + ')">' + i + '</li>';
                 }
 
 
@@ -216,8 +224,9 @@
                 setMonthCalendar(curYear, curMonth);
             }
 
-            function goToDetails() {
-                alert("Hello")
+            function goToDetails(userId, day, month, year) {
+                 let date = "" + year + "-" + month + "-" + day;
+                window.location.assign("http://localhost:8080/worker/workerCalendar/" + userId + "_" + date + "/workerCalendarDetails")
             }
 
         </script>

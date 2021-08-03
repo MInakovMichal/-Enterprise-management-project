@@ -4,9 +4,11 @@ import com.example.project1.api.enums.UserRole;
 import lombok.*;
 import org.hibernate.validator.constraints.pl.PESEL;
 
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,11 +44,6 @@ public class User {
     private UserRole userRole;
     private boolean isActivated;
 
-    public boolean getIsActivated() {
-        return isActivated;
-    }
+    private List<WorkerCalendarDetails> workerCalendarDetails;
 
-    public void setIsActivated(boolean isActivated) {
-        this.isActivated = isActivated;
-    }
 }

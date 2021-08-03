@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Worker Calendar</title>
+    <link th:href="@{/style/main.css}" rel="stylesheet">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        .userInfo {
+            padding: 5px;
+            background: #555555;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div th:replace="fragments/utils.html :: navigation"></div>
+
+<div>
+    <form th:action="@{/worker/workerCalendar/editWorkerCalendarDetails}" th:object="${workerCalendarDetails}"
+          method="post">
+        <input type="hidden" th:field="*{userId}" th:value="${userId}"/>
+        <input type="hidden" th:field="*{addDate}" th:value="${addDate}"/>
+        <input type="hidden" th:field="*{id}" th:value="${id}"/>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    Workday start:
+                </div>
+                <div class="col-4">
+                    <input type="time" min="07:00" max="21:00" th:field="*{workdayStart}" id="workdayStart"/>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-2">
+                    Workday end:
+                </div>
+                <div class="col-4">
+                    <input type="time" min="07:00" max="21:00" th:field="*{workdayEnd}" id="workdayEnd"/>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-2">
+                    Workday place:
+                </div>
+                <div class="col-4">
+                    <input th:field="*{workingPlace}" th:value="*{workingPlace}" id="workingPlace"/>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-2">
+                    Day tasks:
+                </div>
+                <div class="col-4">
+                    <textarea th:field="*{tasks}" style="width:500px; height:75px;" id="tasks"></textarea>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-2">
+                    Volume:
+                </div>
+                <div class="col-4">
+                    <textarea th:field="*{volume}" style="width:500px; height:75px;" id="volume"></textarea>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-2">
+                    Attention:
+                </div>
+                <div class="col-4">
+                    <textarea th:field="*{attention}" style="width:500px; height:75px;" id="attention"></textarea>
+                </div>
+            </div>
+
+            <br>
+
+
+        </div>
+
+        <br>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="offset-3">
+                    <input type="submit" value="Save" class="btn btn-primary">
+                    <input type="reset" class="btn btn-primary"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</form>
+</div>
+<div th:replace="fragments/utils.html :: footer"></div>
+</body>
+</html>

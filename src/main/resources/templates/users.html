@@ -10,24 +10,23 @@
 <body>
 <div th:replace="fragments/utils.html :: navigation"></div>
 
-<div th:if="${users != null and !users.isEmpty()}">
+<div>
   <table class="table table-bordered table-dark">
     <thead>
     <tr>
       <th scope="col">Lp.</th>
-      <th scope="col">Imię</th>
-      <th scope="col" sec:authorize="isAuthenticated()">Nazwisko</th>
+      <th scope="col">Name</th>
+      <th scope="col" sec:authorize="isAuthenticated()">Surname</th>
       <th scope="col" sec:authorize="hasAnyRole('DIRECTOR','HOLDER')">PESEL</th>
       <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Email</th>
-      <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Telefon</th>
+      <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Phone number</th>
       <th scope="col" sec:authorize="hasAnyRole('DIRECTOR','HOLDER')">Login</th>
-      <th scope="col">Stanowisko</th>
-<!--      <th th:if="${users.userLogin == logged}"></th>-->
+      <th scope="col">Position</th>
     </tr>
     </thead>
-    <tbody >
+    <tbody>
     <tr style="cursor:pointer;" th:if="${user.UserLogin != 'Admin'}" th:each="user, iterator : ${users}" th:class="${iterator.odd ? 'odd' : 'even'}"
-        th:include="fragments/usersTable.html :: userRow(user, iterator)" th:onclick="'goToCalendar('+${user.userId}+')'">
+        th:include="fragments/usersTable.html :: userRow(user, iterator)">
     </tr>
     </tbody>
   </table>
@@ -35,8 +34,8 @@
 
 <!--<div th:if="${patients == null or patients.isEmpty()}">-->
 <div th:unless="${users != null and !users.isEmpty()}">
-  <h4>Brak zarejestrowanych pracowników</h4>
-  <p sec:authorize="isAuthenticated()"><a th:href="@{/user/add}">Dodaj pracownika</a></p>
+  <h4>No registered employees</h4>
+  <p sec:authorize="isAuthenticated()"><a th:href="@{/user/add}">Add worker</a></p>
 </div>
 <div th:replace="fragments/utils.html :: footer"></div>
 

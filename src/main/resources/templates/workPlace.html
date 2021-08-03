@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My organization</title>
+    <link th:href="@{/style/main.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/utils.html :: navigation"></div>
+
+<div>
+    <table class="table table-bordered table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Lp.</th>
+            <th scope="col">Name</th>
+            <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Street
+            </th>
+            <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">House
+                number
+            </th>
+            <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Zip code
+            </th>
+            <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">City</th>
+            <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Is order
+                start
+            </th>
+            <th scope="col" sec:authorize="hasAnyRole('ENGINEER','CONSTRUCTION_MANAGER','DIRECTOR','HOLDER')">Is order
+                end
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="cursor:pointer;" th:each="workPlace, iterator : ${workPlaces}"
+            th:class="${iterator.odd ? 'odd' : 'even'}"
+            th:include="fragments/workPlacesTable.html :: workPlaceRow(user, iterator)">
+<!--            th:onclick="'goToCalendar('+${user.userId}+')'">-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:unless="${workPlaces != null and !workPlaces.isEmpty()}">
+    <h4>No one establishments</h4>
+</div>
+<div th:replace="fragments/utils.html :: footer"></div>
+
+
+<script>
+    function editWorkPlace(userId) {
+        window.location.assign("http://localhost:8080/workPlace/updateWorkPlace/" + userId)
+    }
+
+    function goToCalendar(userId) {
+        window.location.assign("http://localhost:8080/worker/workerCalendar/" + userId)
+    }
+
+    function deleteWorkPlace(workPlaceId) {
+        let r = confirm("Delete work place?");
+        if (r === true) {
+            window.location.assign("http://localhost:8080/workPlace/deleteWorkPlace/" + workPlaceId)
+        } else {
+            alert("Work place wos not delete")
+        }
+    }
+</script>
+
+</body>
+</html>

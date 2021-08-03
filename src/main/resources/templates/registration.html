@@ -11,7 +11,7 @@
 
 <div th:replace="fragments/utils.html :: navigation"></div>
 
-<h4>Rejestracja</h4>
+<h4>Registration</h4>
 
 <br>
 
@@ -25,7 +25,6 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userName}" id="userName"/>
-<!--                <div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">UserName Error</div>-->
                 <ul style="color:red">
                     <li th:each="err : ${#fields.errors('userName')}" th:text="${err}"/>
                 </ul>
@@ -36,11 +35,10 @@
 
         <div class="row">
             <div class="col-2">
-                Nazwisko :
+                Surname :
             </div>
             <div class="col-4">
                 <input th:field="*{userSurname}"/>
-<!--                <div style="color:red" th:if="${#fields.hasErrors('userSurname')}" th:errors="*{userSurname}">UserSurname Error</div>-->
                 <ul style="color:red">
                     <li th:each="err : ${#fields.errors('userSurname')}" th:text="${err}"/>
                 </ul>
@@ -55,7 +53,6 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userEmail}" />
-<!--                <div style="color:red" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">UserEmail Error</div>-->
                 <ul style="color:red">
                     <li th:each="err : ${#fields.errors('userEmail')}" th:text="${err}"/>
                 </ul>
@@ -66,11 +63,10 @@
 
         <div class="row">
             <div class="col-2">
-                Telefon :
+                Phone number :
             </div>
             <div class="col-4">
                 <input th:field="*{userPhoneNumber}" />
-<!--                <div style="color:red" th:if="${#fields.hasErrors('userPhoneNumber')}" th:errors="*{userPhoneNumber}">UserPhoneNumber Error</div>-->
                 <ul style="color:red">
                     <li th:each="err : ${#fields.errors('userPhoneNumber')}" th:text="${err}"/>
                 </ul>
@@ -85,7 +81,6 @@
             </div>
             <div class="col-4">
                 <input th:field="*{userLogin}"/>
-<!--                <div style="color:red" th:if="${#fields.hasErrors('userLogin')}" th:errors="*{userLogin}">UserLogin Error</div>-->
                 <ul style="color:red">
                     <li th:each="err : ${#fields.errors('userLogin')}" th:text="${err}"/>
                 </ul>
@@ -96,11 +91,10 @@
 
         <div class="row">
             <div class="col-2">
-                Hasło :
+                Password :
             </div>
             <div class="col-4">
                 <input type="password" th:field="*{userPassword}"/>
-<!--                <div style="color:red" th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}">UserPassword Error</div>-->
                 <ul style="color:red">
                     <li th:each="err : ${#fields.errors('userPassword')}" th:text="${err}"/>
                 </ul>
@@ -112,7 +106,7 @@
         <div class="container">
             <div class="row">
                 <div class="offset-3">
-                    <input type="submit" value="Zapisz" class="btn btn-primary">
+                    <input type="submit" value="Save" class="btn btn-primary">
                     <input type="reset" class="btn btn-primary"/>
                 </div>
             </div>

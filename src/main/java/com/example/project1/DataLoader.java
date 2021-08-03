@@ -32,7 +32,7 @@ public class DataLoader implements ApplicationRunner {
         UserEntity entity2 = UserEntity.builder()
                 .userName("Jan")
                 .userSurname("Nowak")
-                .userEmail("minakov.mykhailo@gmail.com")
+                .userEmail("worker@mail.com") //enter mail
                 .userPhoneNumber("123456")
                 .userPesel("71030567164")
                 .userRole(UserRole.WORKER)

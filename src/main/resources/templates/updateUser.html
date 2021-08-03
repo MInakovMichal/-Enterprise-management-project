@@ -11,7 +11,7 @@
 
 <div th:replace="fragments/utils.html :: navigation"></div>
 
-<h4>Rejestracja</h4>
+<h4>Worker update</h4>
 
 <br>
 
@@ -21,7 +21,7 @@
 
         <div class="row">
             <div class="col-2">
-                Imię :
+                Name :
             </div>
             <div class="col-4">
                 <input th:field="*{userName}"/>
@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-2">
-                Nazwisko :
+                Surname :
             </div>
             <div class="col-4">
                 <input th:field="*{userSurname}"/>
@@ -66,7 +66,7 @@
 
         <div class="row">
             <div class="col-2">
-                Telefon :
+                Phone number :
             </div>
             <div class="col-4">
                 <input th:field="*{userPhoneNumber}"/>
@@ -78,7 +78,7 @@
         <div class="container">
             <div class="row">
                 <div class="offset-3">
-                    <input type="submit" value="Zapisz" class="btn btn-primary">
+                    <input type="submit" value="Save" class="btn btn-primary">
                     <input type="reset" class="btn btn-primary"/>
                 </div>
             </div>

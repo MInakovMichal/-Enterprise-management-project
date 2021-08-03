@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>My organization</title>
+    <link th:href="@{/style/main.css}" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/utils.html :: navigation"></div>
+
+<h4>Registration</h4>
+
+<br>
+
+<div class="container">
+    <form th:action="@{/workPlace/addWorkPlace}" th:object="${workPlace}" method="post">
+        <div class="row">
+            <div class="col-2">
+                Name :
+            </div>
+            <div class="col-4">
+                <input th:field="*{name}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"/>
+                </ul>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-2">
+                Street :
+            </div>
+            <div class="col-4">
+                <input th:field="*{street}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('street')}" th:text="${err}"/>
+                </ul>
+            </div>
+        </div>
+
+        <br>
+
+
+        <div class="row">
+            <div class="col-2">
+                House number :
+            </div>
+            <div class="col-4">
+                <input th:field="*{houseNumber}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('houseNumber')}" th:text="${err}"/>
+                </ul>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-2">
+                Zip code :
+            </div>
+            <div class="col-4">
+                <input th:field="*{zipCode}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('zipCode')}" th:text="${err}"/>
+                </ul>
+
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-2">
+                City :
+            </div>
+            <div class="col-4">
+                <input th:field="*{city}"/>
+                <ul style="color:red">
+                    <li th:each="err : ${#fields.errors('city')}" th:text="${err}"/>
+                </ul>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-2">
+                Is work place start :
+            </div>
+            <div class="col-4">
+                <input id="trueStart" type="radio" th:field="*{started}" th:value="true"
+                       onclick="changeRadioEndedToEnable()"/>
+                <label for="trueStart">Yes</label>
+                <br>
+                <input id="falseStat" type="radio" th:field="*{started}" th:value="false"
+                       onclick="changeRadioEndedToDisable()"/>
+                <label for="falseStat">No</label>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-2">
+                Is work place end :
+            </div>
+            <div class="col-4">
+                <div class="col-4">
+                    <input id="trueEnd" type="radio" th:field="*{ended}" th:value="true"
+                           onclick="changeRadioStarted_no_ToDisable()" disabled/>
+                    <label for="trueEnd">Yes</label>
+                    <br>
+                    <input id="falseEnd" type="radio" th:field="*{ended}" th:value="false"
+                           onclick="changeRadioStarted_no_ToEnable()" disabled/>
+                    <label for="falseEnd">No</label>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="container">
+            <div class="row">
+                <div class="offset-3">
+                    <input type="submit" value="Save" class="btn btn-primary">
+                    <input type="reset" class="btn btn-primary"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/utils.html :: footer"></div>
+
+<script>
+    function changeRadioEndedToEnable() {
+        document.getElementById("trueEnd").disabled = false;
+        document.getElementById("falseEnd").disabled = false;
+    }
+
+    function changeRadioEndedToDisable() {
+        document.getElementById("trueEnd").disabled = true;
+        document.getElementById("falseEnd").disabled = true;
+    }
+
+    function changeRadioStarted_no_ToDisable() {
+        document.getElementById("falseStat").disabled = true;
+        document.getElementById("trueStart").checked = true;
+    }
+
+    function changeRadioStarted_no_ToEnable() {
+        document.getElementById("falseStat").disabled = false;
+    }
+</script>
+</body>
+</html>
+

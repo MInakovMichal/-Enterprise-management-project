@@ -22,7 +22,7 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private final UserService userService;
+    private UserService userService;
 
     @GetMapping("/addUser")
     public ModelAndView handleUserCheck() {

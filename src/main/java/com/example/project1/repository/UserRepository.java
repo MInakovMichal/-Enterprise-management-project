@@ -20,7 +20,7 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 //    boolean findByIsActivated(boolean isActivated);
 
-    Optional<UserEntity> findById(Long id);
+    Optional<UserEntity> findByUserId(Long id);
 
     boolean deleteById(long id);
 
