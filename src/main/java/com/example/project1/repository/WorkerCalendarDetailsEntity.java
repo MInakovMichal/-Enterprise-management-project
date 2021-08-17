@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,7 +30,7 @@ public class WorkerCalendarDetailsEntity {
 
     private String workdayEnd;
 
-    private String workingPlace;
+//    private String workingPlace;
 
     private String tasks;
 
@@ -40,4 +42,7 @@ public class WorkerCalendarDetailsEntity {
 
     @ManyToOne
     private UserEntity user;
+
+    @ManyToOne
+    private WorkPlaceEntity workPlace;
 }

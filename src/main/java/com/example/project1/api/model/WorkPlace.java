@@ -3,6 +3,7 @@ package com.example.project1.api.model;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,4 +33,5 @@ public class WorkPlace {
 
     private boolean ended;
 
+    private List<WorkerCalendarDetails> workerCalendarDetails;
 }

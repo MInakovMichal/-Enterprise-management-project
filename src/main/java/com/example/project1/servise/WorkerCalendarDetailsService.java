@@ -2,10 +2,7 @@ package com.example.project1.servise;
 
 import com.example.project1.api.model.User;
 import com.example.project1.api.model.WorkerCalendarDetails;
-import com.example.project1.repository.UserEntity;
-import com.example.project1.repository.UserRepository;
-import com.example.project1.repository.WorkerCalendarDetailsEntity;
-import com.example.project1.repository.WorkerCalendarDetailsRepository;
+import com.example.project1.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,18 +20,20 @@ public class WorkerCalendarDetailsService {
 
     private final WorkerCalendarDetailsRepository workerCalendarDetailsRepository;
     private final UserRepository userRepository;
+    private final WorkPlaceRepository workPlaceRepository;
 
     public WorkerCalendarDetails mapToWorkerCalendarDetailsModel(WorkerCalendarDetailsEntity entity) {
         return WorkerCalendarDetails.builder()
                 .id(entity.getId())
                 .workdayStart(entity.getWorkdayStart())
                 .workdayEnd(entity.getWorkdayEnd())
-                .workingPlace(entity.getWorkingPlace())
+//                .workingPlace(entity.getWorkingPlace())
                 .tasks(entity.getTasks())
                 .volume(entity.getVolume())
                 .attention(entity.getAttention())
                 .addDate(entity.getAddDate().toString())
                 .userId(entity.getUser().getUserId())
+                .workPlaceId(entity.getWorkPlace().getWorkPlaceId())
                 .build();
     }
 
@@ -56,7 +55,7 @@ public class WorkerCalendarDetailsService {
         throw new IllegalArgumentException("User is not exist");
     }
 
-    public WorkerCalendarDetails getDateInformation(String date, Long userId) throws ParseException {
+    public WorkerCalendarDetails getDateInformationByUserId(String date, Long userId) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date dateToFind = formatter.parse(date);
         Optional<UserEntity> byUserId = userRepository.findByUserId(userId);
@@ -73,6 +72,7 @@ public class WorkerCalendarDetailsService {
 
     public void addCalendar(WorkerCalendarDetails workerCalendarDetails) throws ParseException {
         Optional<UserEntity> byUserId = userRepository.findByUserId(workerCalendarDetails.getUserId());
+        Optional<WorkPlaceEntity> byWorkPlaceId = workPlaceRepository.findByWorkPlaceId(workerCalendarDetails.getWorkPlaceId());
 
         WorkerCalendarDetailsEntity entity = WorkerCalendarDetailsEntity.builder()
 
@@ -80,11 +80,11 @@ public class WorkerCalendarDetailsService {
                 .workdayStart(workerCalendarDetails.getWorkdayStart())
                 .workdayStart(workerCalendarDetails.getWorkdayStart())
                 .workdayEnd(workerCalendarDetails.getWorkdayEnd())
-                .workingPlace(workerCalendarDetails.getWorkingPlace())
                 .tasks(workerCalendarDetails.getTasks())
                 .volume(workerCalendarDetails.getVolume())
                 .attention(workerCalendarDetails.getAttention())
                 .user(byUserId.get())
+                .workPlace(byWorkPlaceId.get())
                 .addDate(new SimpleDateFormat("yyyy-MM-dd").parse(workerCalendarDetails.getAddDate()))
                 .build();
         workerCalendarDetailsRepository.save(entity);

@@ -27,7 +27,7 @@ public class WorkPlaceController {
     @GetMapping
     public ModelAndView displayWorkPlacePage() {
         ModelAndView mav = new ModelAndView("workPlace");
-        mav.addObject("workPlaces", workPlaceService.getAllUser());
+        mav.addObject("workPlaces", workPlaceService.getAllWorkPlace());
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        String login = auth.getName();
 //        Object principal = auth.getPrincipal();

@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "WorkPlace")
+@Table(name = "workPlace")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -33,4 +35,6 @@ public class WorkPlaceEntity {
 
     private boolean ended;
 
+    @OneToMany(mappedBy = "workPlace")
+    private List<WorkerCalendarDetailsEntity> workerCalendarId = new ArrayList<>();
 }

@@ -65,7 +65,10 @@
                     Workday place:
                 </div>
                 <div class="col-4">
-                    <input th:field="*{workingPlace}" th:value="*{workingPlace}" id="workingPlace"/>
+                    <select th:field="*{workPlaceId}" required>
+                        <option th:each="opt : ${wp}"
+                                th:text="${opt.name}" th:value="${opt.workPlaceId}"/>
+                    </select>
                 </div>
             </div>
 
@@ -104,11 +107,9 @@
 
             <br>
 
-
         </div>
 
         <br>
-
 
         <div class="container">
             <div class="row">

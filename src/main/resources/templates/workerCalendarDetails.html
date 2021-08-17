@@ -34,53 +34,54 @@
     <form th:action="@{/worker/workerCalendar/workerCalendarDetails}" th:object="${workerCalendarDetails}"
           method="post">
         <input type="hidden" th:field="*{userId}" th:value="${userId}"/>
+        <input type="hidden" th:field="*{workPlaceId}" th:value="${workPlaceId}"/>
         <input type="hidden" th:field="*{addDate}" th:value="${addDate}"/>
         <input type="hidden" th:field="*{id}" th:value="${id}"/>
 
 
         <div class="container">
             <div class="row">
-                <div class="col-2">
-                    Workday start: <span th:text="*{workdayStart}"></span>
+                <div class="col-3">
+                    <b>Workday start:</b> <span th:text="*{workdayStart}"></span>
                 </div>
             </div>
 
             <br>
 
             <div class="row">
-                <div class="col-2">
-                    Workday end: <span th:text="*{workdayEnd}"></span>
+                <div class="col-3">
+                    <b>Workday end:</b> <span th:text="*{workdayEnd}"></span>
                 </div>
             </div>
 
             <br>
             <div class="row">
-                <div class="col-2">
-                    Workday place: <span th:text="*{workingPlace}"></span>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="row">
-                <div class="col-2">
-                    Day tasks: <span th:text="*{tasks}"></span>
+                <div>
+                    <b> Workday place:</b> <span th:if="${wpId != 0}" th:text="${workPlaceName}"></span>
                 </div>
             </div>
 
             <br>
 
             <div class="row">
-                <div class="col-2">
-                    Volume: <span th:text="*{volume}"></span>
+                <div>
+                    <b>Day tasks:</b> <span th:text="*{tasks}"></span>
                 </div>
             </div>
 
             <br>
 
             <div class="row">
-                <div class="col-2">
-                    Attention: <span th:text="*{attention}"></span>
+                <div>
+                    <b>Volume:</b> <span th:text="*{volume}"></span>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div>
+                    <b>Attention:</b> <span th:text="*{attention}"></span>
                 </div>
             </div>
 

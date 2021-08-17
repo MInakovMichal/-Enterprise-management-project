@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,8 +22,10 @@ public class WorkPlaceService {
 
     @Autowired
     private WorkPlaceRepository workPlaceRepository;
+    private final WorkerCalendarDetailsService workerCalendarDetailsService;
 
-    public List<WorkPlace> getAllUser() {
+
+    public List<WorkPlace> getAllWorkPlace() {
         return workPlaceRepository.findAll()
                 .stream()
                 .map(this::mapToWorkPlace)
@@ -39,7 +42,7 @@ public class WorkPlaceService {
                 .city(entity.getCity())
                 .started(entity.isStarted())
                 .ended(entity.isEnded())
-                .build();
+                .workerCalendarDetails(workerCalendarDetailsService.mapToWorkerCalendarDetailsModelList(entity.getWorkerCalendarId()))                .build();
     }
 
     public void registerWorkPlace(WorkPlace workPlace) {

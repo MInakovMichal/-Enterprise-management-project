@@ -10,13 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 
 @Controller
-//@PreAuthorize("permitAll()")
 public class MainPageController {
-//    @GetMapping("/")
-//    public String displayMainPage(final ModelMap modelMap) {
-//        modelMap.addAttribute("currentDate", LocalDate.now());
-//        return "main";
-//    }
 
     @GetMapping("/")
     public ModelAndView displayMainPage() {

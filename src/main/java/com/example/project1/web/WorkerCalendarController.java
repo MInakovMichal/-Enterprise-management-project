@@ -5,6 +5,7 @@ import com.example.project1.api.model.User;
 import com.example.project1.api.model.WorkerCalendarDetails;
 import com.example.project1.repository.UserEntity;
 import com.example.project1.servise.UserService;
+import com.example.project1.servise.WorkPlaceService;
 import com.example.project1.servise.WorkerCalendarDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class WorkerCalendarController {
 
     private final UserService userService;
     private final WorkerCalendarDetailsService workerCalendarDetailsService;
+    private final WorkPlaceService workPlaceService;
 
 
     @GetMapping("/{userId}")
@@ -35,7 +37,8 @@ public class WorkerCalendarController {
     @GetMapping("/{userId}_{date}/editWorkerCalendarDetails")
     public ModelAndView displayWorkerCalendarDetailsPage(@PathVariable Long userId, @PathVariable String date) throws ParseException {
         ModelAndView mav = new ModelAndView("updateWorkerCalendarDetails");
-        WorkerCalendarDetails dateInformation = workerCalendarDetailsService.getDateInformation(date, userId);
+        mav.addObject("wp", workPlaceService.getAllWorkPlace());
+        WorkerCalendarDetails dateInformation = workerCalendarDetailsService.getDateInformationByUserId(date, userId);
         if (dateInformation == null) {
             dateInformation = new WorkerCalendarDetails();
             dateInformation.setUserId(userId);
@@ -51,7 +54,7 @@ public class WorkerCalendarController {
     @GetMapping("/{userId}_{date}/workerCalendarDetails")
     public ModelAndView displayUpdateWorkerPage(@PathVariable Long userId, @PathVariable String date) throws ParseException {
         ModelAndView mav = new ModelAndView("workerCalendarDetails");
-        WorkerCalendarDetails dateInformation = workerCalendarDetailsService.getDateInformation(date, userId);
+        WorkerCalendarDetails dateInformation = workerCalendarDetailsService.getDateInformationByUserId(date, userId);
         if (dateInformation == null) {
             dateInformation = new WorkerCalendarDetails();
             dateInformation.setUserId(userId);
@@ -60,6 +63,12 @@ public class WorkerCalendarController {
         }
 
         mav.addObject("workerCalendarDetails", dateInformation);
+        long workPlaceId = dateInformation.getWorkPlaceId();
+        mav.addObject("wpId", workPlaceId);
+        if (workPlaceId != 0) {
+            mav.addObject("workPlaceName", workPlaceService.getWorkPlaceById(workPlaceId).getName());
+        }
+
         return mav;
     }
 
